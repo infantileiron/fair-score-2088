@@ -3,6 +3,7 @@ from fastapi import HTTPException
 from sqlalchemy import select
 from src.models import AuditReport,GroupReview
 from src.services.runs import require_completed
+from src.services.exports import build_report_csv
 from src.utils.time import now
 from src.utils.serialization import serialize
 def create(db,payload,user):
@@ -15,6 +16,4 @@ def export(db,id):
  report=db.get(AuditReport,id)
  if not report: raise HTTPException(404,"归档报告不存在")
  run=require_completed(db,report.run_id)
- buf=io.StringIO();cols=["group","n","selected","qualified","tp","fp","fn","tn","selection_rate","tpr","fpr"]
- writer=csv.DictWriter(buf,cols,extrasaction="ignore");writer.writeheader();writer.writerows(run.result["groups"])
- return "\ufeff"+buf.getvalue()
+ return build_report_csv(run.result)

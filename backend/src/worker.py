@@ -15,7 +15,7 @@ def execute(id):
   run.status="running";db.commit()
   try:
    policy=db.get(ScorePolicy,run.policy_id);data=db.get(CandidateDataset,policy.dataset_id)
-   run.result=analyze(data.rows,policy.threshold,policy.max_gap);run.status="completed"
+   run.result=analyze(data.rows,policy.threshold,policy.max_gap,policy.job_weights);run.status="completed"
   except Exception as error: run.status="failed";run.error=str(error);traceback.print_exc()
   db.commit()
 # Resume jobs persisted before a worker restart, including a queue handoff interrupted by a crash.
