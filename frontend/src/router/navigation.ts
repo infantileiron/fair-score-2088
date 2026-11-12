@@ -1,0 +1,1 @@
+export const navigation=[{id:'overview',label:'审计总览',number:'01'},{id:'datasets',label:'候选样本',number:'02'},{id:'policies',label:'分数线方案',number:'03'},{id:'results',label:'差异与前沿',number:'04'},{id:'reviews',label:'复核归档',number:'05'},{id:'audit',label:'操作留痕',number:'06'}];
